@@ -111,10 +111,11 @@ let monthlyChanges = [];
 // to compare from the second month start i = 1
 
 for (let i = 1; i < totalMonths; i++) {
-  let difference = finances[i][1] - finances[i - 1][1];
-  monthlyChanges.push(difference);
+  let changes = finances[i][1] - finances[i - 1][1];
+  monthlyChanges.push(changes);
 }
 
+// to find the average change of profit/losses in entire period
 let averageChange =
   monthlyChanges.reduce((accumulator, value) => {
     return accumulator + value;
@@ -122,3 +123,29 @@ let averageChange =
   (totalMonths - 1);
 
 console.log ("Average Change: £ " +averageChange.toFixed(2));
+
+// greatest increase and decrease in profit over entire period
+
+let profitIncrease;
+let profitDecrease;
+let profitIncreaseMonth;
+let profitDecreaseMonth;
+
+profitIncrease = monthlyChanges[0];
+profitDecrease = monthlyChanges[0];
+
+for (let changes of monthlyChanges) {
+  if (profitIncrease < changes) {
+    profitIncrease = changes;
+    profitIncreaseMonth = finances[monthlyChanges.indexOf(changes) + 1][0];
+  }
+  if (profitDecrease > changes) {
+    profitDecrease = changes;
+    profitDecreaseMonth = finances[monthlyChanges.indexOf(changes) + 1][0];
+  }
+}
+
+console.log("Greatest Increase in Profits: " +profitIncreaseMonth +(" (£ " +profitIncrease+ ")" ));
+console.log("Greatest Decrease in Losses: " +profitDecreaseMonth +(" (£ " +profitDecrease+ ")" ));
+
+

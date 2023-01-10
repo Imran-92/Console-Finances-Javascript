@@ -95,3 +95,30 @@ let finances = [
 let totalMonths=finances.length;
 
 console.log("Total Months: " +totalMonths);
+
+// net total amount of Profit/Losses over entire period using for loop//
+
+let netTotal = 0;
+for(let i=0; i<finances.length; i++){
+    netTotal += finances[i][1];
+}
+console.log("Net Total: " +netTotal);
+
+// Average of changes in Profit/Losses using for loog//
+
+let monthlyChanges = [];
+
+// to compare from the second month start i = 1
+
+for (let i = 1; i < totalMonths; i++) {
+  let difference = finances[i][1] - finances[i - 1][1];
+  monthlyChanges.push(difference);
+}
+
+let averageChange =
+  monthlyChanges.reduce((accumulator, value) => {
+    return accumulator + value;
+  }, 0) /
+  (totalMonths - 1);
+
+console.log ("Average Change: £ " +averageChange.toFixed(2));
